@@ -1,11 +1,11 @@
-pub trait Category {
+pub trait Category : Copy {
 	fn id() -> u8;
 }
 
 macro_rules! category {
    ($($name:ident = $num:expr),*) => {
    	$(
-	   	#[derive(Debug)]
+	   	#[derive(Debug, Clone, Copy)]
 	   	pub struct $name;
 
 	   	impl Category for $name {
