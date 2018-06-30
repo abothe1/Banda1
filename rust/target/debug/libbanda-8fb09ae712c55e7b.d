@@ -1,0 +1,1 @@
+/Users/sampersand/banda/target/debug/libbanda-8fb09ae712c55e7b.rmeta: /Users/sampersand/banda/src/main.rs /Users/sampersand/banda/src/user_ideas/goals.rs /Users/sampersand/banda/src/user_ideas/mod.rs /Users/sampersand/banda/src/user_ideas/user_ideas.rs
