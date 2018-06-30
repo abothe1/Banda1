@@ -1,5 +1,0 @@
-[workspace]
-members = [ "storage", "user_ideas" ]
-
-[profile.dev]
-debug = true
