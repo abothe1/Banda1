@@ -1,0 +1,7 @@
+[package]
+name = "banda-storage"
+version = "0.1.0"
+authors = ["sam <westerhack@gmail.com"]
+
+[dependencies]
+mysql = "*"

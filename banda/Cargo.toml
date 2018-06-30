@@ -1,0 +1,2 @@
+[workspace]
+members = [ "storage", "user_ideas" ]
