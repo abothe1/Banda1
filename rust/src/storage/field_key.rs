@@ -12,14 +12,14 @@ impl<C: Category + Debug> Debug for FieldKey<C>
 	}
 }
 
-impl<C> Default for FieldKey<C> {
+impl<C: Clone> Default for FieldKey<C> {
 	#[inline]
 	fn default() -> FieldKey<C> {
 		FieldKey::new()
 	}
 }
 
-impl<C> FieldKey<C> {
+impl<C: Clone> FieldKey<C> {
 	#[inline]
 	pub fn new() -> FieldKey<C> {
 		FieldKey(Vec::new())
@@ -32,6 +32,11 @@ impl<C> FieldKey<C> {
 	#[inline]
 	pub fn push(&mut self, field: DataField<C>) {
 		self.0.push(field)
+	}
+
+	#[inline]
+	pub fn push_all(&mut self, fields: &[DataField<C>]) {
+		self.0.extend_from_slice(fields)
 	}
 	
 	#[inline]
