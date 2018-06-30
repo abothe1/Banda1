@@ -1,39 +1,46 @@
-use super::{DataField, FieldId, Category};
+use super::{DataField, Category};
+use std::fmt::{self, Debug, Formatter};
+use std::slice::Iter;
 
-#[derive(Debug)]
-pub struct FieldKey<F: FieldId>(Vec<DataField<F>>);
+#[derive(Clone)]
+pub struct FieldKey<C>(Vec<DataField<C>>);
 
-pub struct FieldKeyIter<'a, F: FieldId + 'a>(&'a mut FieldKey<F>);
+impl<C: Category + Debug> Debug for FieldKey<C>
+			where C::Field: Debug {
+	fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+		f.debug_tuple("FieldKey").field(&self.0).finish()
+	}
+}
 
-impl<F: FieldId> FieldKey<F> {
+impl<C> Default for FieldKey<C> {
 	#[inline]
-	pub fn new() -> FieldKey<F> {
+	fn default() -> FieldKey<C> {
+		FieldKey::new()
+	}
+}
+
+impl<C> FieldKey<C> {
+	#[inline]
+	pub fn new() -> FieldKey<C> {
 		FieldKey(Vec::new())
 	}
 	#[inline]
-	pub fn with_capacity(cap: usize) -> FieldKey<F> {
+	pub fn with_capacity(cap: usize) -> FieldKey<C> {
 		FieldKey(Vec::with_capacity(cap))
 	}
 
 	#[inline]
-	pub fn push(&mut self, field: DataField<F>) {
+	pub fn push(&mut self, field: DataField<C>) {
 		self.0.push(field)
 	}
 	
 	#[inline]
-	pub fn pop(&mut self) -> Option<DataField<F>> {
+	pub fn pop(&mut self) -> Option<DataField<C>> {
 		self.0.pop()
 	}
 
 	#[inline]
-	pub fn iter(&mut self) -> FieldKeyIter<F> {
-		FieldKeyIter(self)
-	}
-}
-
-impl<'a, F: FieldId + 'a> Iterator for FieldKeyIter<'a, F> {
-	type Item = DataField<F>;
-	fn next(&mut self) -> Option<DataField<F>> {
-		(self.0).0.pop()
+	pub fn iter(&mut self) -> Iter<DataField<C>> {
+		self.0.iter()
 	}
 }
