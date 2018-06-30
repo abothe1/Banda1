@@ -1,5 +1,6 @@
 pub trait Category : Copy {
 	fn id() -> u8;
+	fn name() -> &'static str;
 }
 
 macro_rules! category {
@@ -10,6 +11,7 @@ macro_rules! category {
 
 	   	impl Category for $name {
 	   		fn id() -> u8 { $num }
+	   		fn name() -> &'static str { stringify!($name) }
 	   	}
    	)*
    }

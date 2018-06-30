@@ -1,1 +1,1 @@
-/Users/sampersand/banda/target/debug/banda.dSYM: /Users/sampersand/banda/src/fraction.rs /Users/sampersand/banda/src/lib.rs /Users/sampersand/banda/src/main.rs
+/Users/sampersand/Banda1/rust/target/debug/banda.dSYM: /Users/sampersand/Banda1/rust/src/lib.rs /Users/sampersand/Banda1/rust/src/main.rs /Users/sampersand/Banda1/rust/src/storage/category.rs /Users/sampersand/Banda1/rust/src/storage/data_field.rs /Users/sampersand/Banda1/rust/src/storage/mod.rs /Users/sampersand/Banda1/rust/src/storage/preference.rs

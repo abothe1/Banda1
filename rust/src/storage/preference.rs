@@ -1,5 +1,13 @@
-#[derive(Debug)]
+use std::fmt::{self, Debug, Formatter};
 pub struct Preference(u8);
+
+
+impl Debug for Preference {
+	#[inline]
+	fn fmt(&self, f: &mut Formatter) -> fmt::Result  {
+		Debug::fmt(&self.0, f)
+	}
+}
 
 impl Preference {
 	#[inline]
