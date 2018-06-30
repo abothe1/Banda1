@@ -1,6 +1,5 @@
-[package]
-name = "banda"
-version = "0.1.0"
-authors = ["sam <sam.westerman@usaepay.com>"]
+[workspace]
+members = [ "storage", "user_ideas" ]
 
-[dependencies]
+[profile.dev]
+debug = true
