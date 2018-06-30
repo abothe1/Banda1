@@ -10,6 +10,8 @@ struct Payment {
 }
 
 fn main() {
+	let a: u8 = 1;
+	println!("a: {}", a);
     let pool = my::Pool::new("mysql://root:@localhost:3307").unwrap();
 
     // Let's create payment table.
