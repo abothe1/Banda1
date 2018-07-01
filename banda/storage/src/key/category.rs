@@ -1,4 +1,4 @@
-use super::{Field, field};
+use super::{Field, field, DataField};
 pub trait Category : Copy {
 	type Field: Field;
 	fn id() -> u8;
@@ -27,6 +27,6 @@ macro_rules! category {
 category! {
 	struct Goals<Field = Goal> = 0;
 	struct Genres<Field = Genre> = 1;
-	struct IntsWanted<Field = Instrument> = 2;
-	struct IntsPlayed<Field = Instrument> = 3;
+	struct Wants<Field = Instrument> = 2;
+	struct Plays<Field = Instrument> = 3;
 }

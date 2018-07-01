@@ -20,6 +20,12 @@ impl<C: Clone> Default for FieldKey<C> {
 	}
 }
 
+impl<C, I: Into<Vec<DataField<C>>>> From<I> for FieldKey<C> {
+	fn from(iter: I) -> FieldKey<C> {
+		FieldKey(iter.into())
+	}
+}
+
 impl<C> From<FieldKey<C>> for Bytes {
 	fn from(key: FieldKey<C>) -> Bytes {
 		let mut bytes = Bytes::with_capacity(key.0.len() * 2);
@@ -58,7 +64,7 @@ impl<C: Clone> FieldKey<C> {
 	}
 
 	#[inline]
-	pub fn iter(&mut self) -> Iter<DataField<C>> {
+	pub fn iter(&self) -> Iter<DataField<C>> {
 		self.0.iter()
 	}
 }

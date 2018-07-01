@@ -37,5 +37,3 @@ field!{
 	2: pub struct Instrument;
 }
 
-
-
