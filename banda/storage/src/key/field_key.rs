@@ -1,6 +1,7 @@
 use super::{DataField, Category};
 use std::fmt::{self, Debug, Formatter};
 use std::slice::Iter;
+use db::Bytes;
 
 #[derive(Clone)]
 pub struct FieldKey<C>(Vec<DataField<C>>);
@@ -18,6 +19,18 @@ impl<C: Clone> Default for FieldKey<C> {
 		FieldKey::new()
 	}
 }
+
+impl<C> From<FieldKey<C>> for Bytes {
+	fn from(key: FieldKey<C>) -> Bytes {
+		let mut bytes = Bytes::with_capacity(key.0.len() * 2);
+		for data_field in key.0 {
+			bytes.extend(Bytes::from(data_field));
+		}
+
+		bytes
+	}
+}
+
 
 impl<C: Clone> FieldKey<C> {
 	#[inline]

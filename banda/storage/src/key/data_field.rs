@@ -1,6 +1,6 @@
 use super::{Field, Category, Preference};
+use db::Bytes;
 use std::fmt::{self, Debug, Formatter};
-
 use std::marker::PhantomData;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -17,6 +17,11 @@ impl<C: Category + Debug> Debug for DataField<C>
 	}
 }
 
+impl<C> From<DataField<C>> for Bytes {
+	fn from(data_field: DataField<C>) -> Bytes {
+		vec![(data_field.0 >> 8) as u8, data_field.0 as u8]
+	}
+}
 
 const MAX_FIELD_ID: u16 = 0b111_111_111_111_1; // (1 << 13) - 1
 
@@ -44,6 +49,5 @@ impl<C: Category> DataField<C> {
 	#[inline]
 	pub fn category(self) -> C {
 		C::assert_from((self.0 >> 3) as u8 & 7)
-	}
- 
+	} 
 }
