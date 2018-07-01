@@ -24,7 +24,7 @@ fn main(){
 		/* plays  */ &[ df!(Drums) ]
 	);
 
-	let sam = User::new("kwan", 0xff, "ethan@kwan.work", None,
+	let kwan = User::new("kwan", 0xff, "ethan@kwan.work", None,
 		/* goals  */ &[ df!(5) ],
 		/* genres */ &[ df!(Edm, Like), df!(Rock, Dislike), df!(Class, Hate), df!(Blues, Ok) ],
 		/* wants  */ &[ df!(Drums), df!(Guitar) ],
@@ -33,5 +33,6 @@ fn main(){
 
 
 	let db = Database::from_user_port("root", 3306).expect("couldnt make db");
-	db.insert_user(&user).expect("couldnt insert into db");
+	db.insert_user(&sam).expect("couldnt insert sam into db");
+	db.insert_user(&kwan).expect("couldnt insert kwawn into db");
 }

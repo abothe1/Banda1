@@ -1,4 +1,4 @@
-use super::{Field, field, DataField};
+use super::{Field, field};
 pub trait Category : Copy {
 	type Field: Field;
 	fn id() -> u8;
