@@ -24,10 +24,6 @@ impl User {
 }
 
 impl IntoMysql for User {
-	fn default_table() -> Option<&'static str> {
-		Some("banda_users")
-	}
-
 	fn columns() -> &'static [&'static str] {
 		&[ "username", "password", "email", "phone", "total_key" ]
 	}

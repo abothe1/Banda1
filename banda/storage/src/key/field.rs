@@ -5,37 +5,38 @@ pub trait Field : Copy + From<u16> {
 }
 
 macro_rules! field {
-   ($($id:tt: pub enum $name:ident { $($var:ident),* })*) => {
+   ($($id:tt: pub struct $name:ident; )*) => {
    	$(
 			#[derive(Debug, Copy, Clone)]
-			#[repr(u16)]
-			pub enum $name {
-				$($var,)*
-				#[doc(hidden)]
-				__Last
+			pub struct $name(u16);
+
+			impl $name {
+				#[inline]
+				pub fn new(inp: u16) -> $name { $name(inp) }
 			}
 
 			impl Field for $name {
+				#[inline]
 				fn id(self) -> u16 { $id }
 			}
 
+			impl From<$name> for u16 {
+				#[inline]
+				fn from(inp: $name) -> u16 { inp.0 }
+			}
+
 			impl From<u16> for $name {
-				fn from(id: u16) -> $name {
-					if id < $name::__Last as u16 {
-						unsafe{ mem::transmute::<u16, $name>(id) }
-					} else {
-						panic!(concat!("Unknown field `{}` for ", stringify!($name)), id)
-					}
-				}
+				#[inline]
+				fn from(inp: u16) -> $name { $name::from(inp) }
 			}
 		)*
    }
 }
 
 field!{
-	0: pub enum Goal { BecomeFamous }
-	1: pub enum Genre { Jazz, Rock, Edm, Blues }
-	2: pub enum Instrument { Drums, Guitar, Piano, Trumpet }
+	0: pub struct Goal;
+	1: pub struct Genre;
+	2: pub struct Instrument;
 }
 
 

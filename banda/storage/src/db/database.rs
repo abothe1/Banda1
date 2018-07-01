@@ -4,6 +4,7 @@ use mysql::{self, Pool, OptsBuilder, Opts};
 
 #[derive(Debug)]
 pub struct Database {
+	database: String,
 	pool: Pool
 }
 
@@ -20,25 +21,22 @@ fn prepend_colons(strings: &[&str]) -> String {
 
 impl Database {
 	#[inline]
-	pub fn from_user_port(user: &str, port: u16) -> mysql::Result<Database> {
-		Database::new(&format!("mysql://{}:@localhost:{}", user, port))
+	pub fn from_user_port(database: &str, user: &str, port: u16) -> mysql::Result<Database> {
+		Database::new(database, &format!("mysql://{}:@localhost:{}", user, port))
 	}
 
 	#[inline]
-	pub fn new(conn: &str) -> mysql::Result<Database> {
-		Ok(Database{ pool: Pool::new(conn)? })
+	pub fn new(database: &str, conn: &str) -> mysql::Result<Database> {
+		Ok(Database{
+			database: database.to_string(),
+			pool: Pool::new(conn)?
+		})
 	}
 
 
-	pub fn insert<T: IntoMysql>(&self, obj: T) -> Result<()> {
-		match T::default_table() {
-			Some(table) => self.insert_with_table(table, obj),
-			None => Err(Error::TableRequired)
-		}
-	}
-
-	pub fn insert_with_table<T: IntoMysql>(&self, table: &str, obj: T) -> Result<()> {
-		let insert_stmt = format!("INSERT INTO {table} ({columns}) VALUES ({values})", 
+	pub fn insert<T: IntoMysql>(&self, table: &str, obj: T) -> Result<()> {
+		let insert_stmt = format!("INSERT INTO {database}.{table} ({columns}) VALUES ({values})", 
+			database = self.database,
 			table = table,
 			columns = T::columns().join(","),
 			values = prepend_colons(T::columns())
