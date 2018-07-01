@@ -1,5 +1,3 @@
-use std::mem;
-
 pub trait Field : Copy + From<u16> {
 	fn id(self) -> u16;
 }
@@ -27,7 +25,7 @@ macro_rules! field {
 
 			impl From<u16> for $name {
 				#[inline]
-				fn from(inp: u16) -> $name { $name::from(inp) }
+				fn from(inp: u16) -> $name { $name::new(inp) }
 			}
 		)*
    }
