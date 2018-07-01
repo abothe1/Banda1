@@ -4,11 +4,11 @@ use banda_storage::db::Database;
 use banda_storage::key::DataField;
 use banda_storage::user::User;
 
-#[repr(u8)] enum Pref { Unknown, Hate, Dislike, Meh, Netural, Ok, Like, Love } use self::Pref::*;
+#[repr(u8)] enum Pref { Unknown = 0, Hate, Dislike, Meh, Netural, Ok, Like, Love } use self::Pref::*;
 impl From<Pref> for ::banda_storage::key::Level { fn from(inp: Pref) -> Self { Self::from(inp as u8)}}
-#[repr(u8)] enum Genres { Jazz, Rock, Blues, Exper, Class, Funk, Latin, Edm } use self::Genres::*;
+#[repr(u8)] enum Genres { Jazz = 0, Rock, Blues, Exper, Class, Funk, Latin, Edm } use self::Genres::*;
 impl From<Genres> for ::banda_storage::key::field::Genre { fn from(inp: Genres) -> Self { Self::from(inp as u16)}}
-#[repr(u8)] enum Instrs { Drums, Guitar, Piano, Voice } use self::Instrs::*;
+#[repr(u8)] enum Instrs { Drums = 0, Guitar, Piano, Voice } use self::Instrs::*;
 impl From<Instrs> for ::banda_storage::key::field::Instrument { fn from(inp: Instrs) -> Self { Self::from(inp as u16)}}
 
 macro_rules! df {

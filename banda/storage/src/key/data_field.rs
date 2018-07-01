@@ -3,6 +3,16 @@ use db::Bytes;
 use std::fmt::{self, Debug, Formatter};
 use std::marker::PhantomData;
 
+/*
+
+the syntax is:
+
+0000 0000 0000 0000 0000 0000 0000 0LLL
+
+L = Level
+C = Category Type
+
+*/
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub struct DataField<C>(u16, PhantomData<C>);
 
@@ -43,7 +53,7 @@ impl<C: Category> DataField<C> {
 
 	#[inline]
 	pub fn level(self) -> Level {
-		Level::from((self.0 & 0x111) as u8)
+		Level::from((self.0 & 7) as u8)
 	}
 
 	#[inline]
